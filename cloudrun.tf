@@ -1,25 +1,12 @@
-terraform {
-  required_providers {
-    google = {
-      source = "hashicorp/google"
-      version = "4.75.0"
-    }
-  }
-}
-
-provider "google" {
-  # Configuration options
-}
-
 resource "google_cloud_run_service" "default" {
-  name     = "cloudrun-srv"
-  location = "us-central1"
-  project = "angelic-hexagon-307814"
+  name     = var.instance_name
+  location = var.region
+  project = var.project_id
 
   template {
     spec {
       containers {
-        name= "hello"
+        name= var.container_name
         ports {
             container_port=8080
         }
