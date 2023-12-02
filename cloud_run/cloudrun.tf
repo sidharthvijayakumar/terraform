@@ -2,7 +2,11 @@ resource "google_cloud_run_service" "hello" {
   name     = var.instance_name
   location = var.region
   project = var.project_id
-
+  metadata {
+    annotations = {
+      "run.googleapis.com/ingress" = "all"
+    }
+  }
   template {
     spec {
       containers {
@@ -35,6 +39,7 @@ resource "google_cloud_run_service" "hello" {
     percent         = 100
     latest_revision = true
   }
+
 }
 
 data "google_iam_policy" "noauth" {
